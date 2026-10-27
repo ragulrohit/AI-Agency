@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Stackly AI demo tools for prompts, support, content, data summaries, and workflow mapping.">
+  <title>AI Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%237c5cff'/%3E%3Cstop offset='.5' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%23ff4ecd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Crect x='20' y='20' width='24' height='24' rx='4' transform='rotate(45 32 32)' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script>
+    (function () {
+      try {
+        var raw = sessionStorage.getItem('stackly_user');
+        var user = raw ? JSON.parse(raw) : null;
+        if (!user || !user.email) {
+          var next = location.pathname.split('/').pop() || 'dashboard.html';
+          location.replace('login.html?next=' + encodeURIComponent(next));
+        }
+      } catch (error) {
+        location.replace('login.html');
+      }
+    })();
+  </script>
+</head>
+<body class="dashboard-body" data-page="ai-tools">
+  <a href="#dashMain" class="sr-only">Skip to dashboard content</a>
+  <div class="dash-shell">
+    <aside class="dash-sidebar" id="dashSidebar" aria-label="Dashboard sidebar"></aside>
+    <div class="dash-main">
+      <header class="dash-topbar" id="dashTopbar"></header>
+      <main class="dash-content" id="dashMain">
+
+        <div class="page-head">
+          <div>
+            <div class="greeting-pill">Intelligence toolkit</div>
+            <h1>AI Tools</h1>
+            <p>Practical demo tools for common team tasks. Every run happens locally in your browser.</p>
+          </div>
+          <div class="page-head-actions">
+            <span class="badge demo" id="toolCountLabel">8 tools</span>
+            <a class="dash-btn" href="projects.html">Apply a tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+        <div class="dash-grid" style="margin-bottom:16px">
+          <section class="dash-panel tool-hero span-12">
+            <div class="tool-hero-copy">
+              <span class="eyebrow">Human-led. AI-assisted.</span>
+              <h2>Start with the work, not the model.</h2>
+              <p>These demo tools show how Stackly frames prompts, structures outputs, and keeps a human checkpoint on the tasks that matter.</p>
+            </div>
+            <div class="tool-hero-img">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80" alt="Team planning an AI workflow in a workshop" loading="lazy">
+            </div>
+          </section>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filter-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><label class="sr-only" for="toolSearch">Search AI tools</label><input id="toolSearch" type="search" placeholder="Search tools..." autocomplete="off"></div>
+          <div class="filter-tabs" role="group" aria-label="Filter AI tools by category">
+            <button class="filter-tab active" type="button" data-tool-filter="All">All</button>
+            <button class="filter-tab" type="button" data-tool-filter="Content">Content</button>
+            <button class="filter-tab" type="button" data-tool-filter="Data">Data</button>
+            <button class="filter-tab" type="button" data-tool-filter="CX">CX</button>
+            <button class="filter-tab" type="button" data-tool-filter="Productivity">Productivity</button>
+            <button class="filter-tab" type="button" data-tool-filter="Engineering">Engineering</button>
+            <button class="filter-tab" type="button" data-tool-filter="Strategy">Strategy</button>
+            <button class="filter-tab" type="button" data-tool-filter="Operations">Operations</button>
+          </div>
+        </div>
+
+        <div class="tool-grid" id="toolsGrid" aria-live="polite"></div>
+
+        <div class="dash-grid" style="margin-top:16px">
+          <section class="dash-panel span-12">
+            <div class="panel-body" style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;">
+              <div class="notice-box" style="margin:0;flex:1;min-width:240px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><div><strong>How these demos work</strong>No AI model or API is called. Each tool runs a deterministic local template so you can test the interaction safely.</div></div>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js" defer></script>
+  
+  
+  <script src="js/dashboard.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stackly AI demo analytics with interactive adoption, revenue, and automation performance charts.">
+  <title>Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%237c5cff'/%3E%3Cstop offset='.5' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%23ff4ecd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Crect x='20' y='20' width='24' height='24' rx='4' transform='rotate(45 32 32)' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script>
+    (function () {
+      try {
+        var raw = sessionStorage.getItem('stackly_user');
+        var user = raw ? JSON.parse(raw) : null;
+        if (!user || !user.email) {
+          var next = location.pathname.split('/').pop() || 'dashboard.html';
+          location.replace('login.html?next=' + encodeURIComponent(next));
+        }
+      } catch (error) {
+        location.replace('login.html');
+      }
+    })();
+  </script>
+</head>
+<body class="dashboard-body" data-page="analytics">
+  <a href="#dashMain" class="sr-only">Skip to dashboard content</a>
+  <div class="dash-shell">
+    <aside class="dash-sidebar" id="dashSidebar" aria-label="Dashboard sidebar"></aside>
+    <div class="dash-main">
+      <header class="dash-topbar" id="dashTopbar"></header>
+      <main class="dash-content" id="dashMain">
+
+        <div class="page-head">
+          <div>
+            <div class="greeting-pill">Insight centre</div>
+            <h1>Analytics</h1>
+            <p>Measure adoption, revenue impact, and automation performance across the demo workspace.</p>
+          </div>
+          <div class="page-head-actions">
+            <label class="sr-only" for="analyticsRange">Analytics date range</label>
+            <select class="dash-control" id="analyticsRange">
+              <option value="7">Last 7 days</option>
+              <option value="30" selected>Last 30 days</option>
+              <option value="90">Last 90 days</option>
+              <option value="365">Last 12 months</option>
+            </select>
+            <label class="sr-only" for="analyticsMetric">Analytics metric</label>
+            <select class="dash-control" id="analyticsMetric">
+              <option value="revenue">Revenue</option>
+              <option value="hours">Hours saved</option>
+              <option value="interactions">Interactions</option>
+            </select>
+            <a class="dash-btn" href="reports.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg> Reports</a>
+          </div>
+        </div>
+
+        <div class="analytics-summary">
+          <div class="mini-stat"><small>Primary metric</small><strong id="analyticsPrimaryValue">$284k</strong><span id="analyticsPrimaryTrend">+18.4%</span></div>
+          <div class="mini-stat"><small>AI interactions</small><strong>38.2k</strong><span>+11.7% vs previous period</span></div>
+          <div class="mini-stat"><small>Automation rate</small><strong>78%</strong><span>+6.3 pts</span></div>
+          <div class="mini-stat"><small>Quality score</small><strong>4.7 / 5</strong><span>Based on human review</span></div>
+        </div>
+
+        <div class="dash-grid">
+          <section class="dash-panel span-8">
+            <div class="panel-head">
+              <div><h2>Growth trend</h2><p>Selected metric over <span id="analyticsRangeLabel">Last 30 days</span>.</p></div>
+              <span class="badge demo">Demo data</span>
+            </div>
+            <div class="panel-body">
+              <div class="chart-wrap"><canvas id="analyticsRevenueChart" aria-label="Line chart of analytics trend" role="img"></canvas></div>
+              <p class="chart-note">Change the date range or metric above to update this chart.</p>
+            </div>
+          </section>
+
+          <section class="dash-panel span-4">
+            <div class="panel-head"><div><h2>Usage by solution</h2><p>Share of AI interactions.</p></div></div>
+            <div class="panel-body">
+              <div class="chart-wrap"><canvas id="analyticsPieChart" aria-label="Doughnut chart of usage by solution" role="img"></canvas></div>
+            </div>
+          </section>
+
+          <section class="dash-panel span-8">
+            <div class="panel-head">
+              <div><h2>Channel performance</h2><p>Where the strongest outcomes are coming from.</p></div>
+              <a class="dash-btn sm" href="reports.html">View reports <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+            <div class="panel-body flush">
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead><tr><th>Channel</th><th>Interactions</th><th>Conversion</th><th>Revenue impact</th><th>Trend</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="table-primary"><span class="project-dot" style="background:#7c5cff">CS</span><div><strong>Customer Support</strong><small>AI triage and drafting</small></div></div></td><td>14,280</td><td>31.4%</td><td>$92.4k</td><td><span class="metric-trend"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> 14.2%</span></td></tr>
+                    <tr><td><div class="table-primary"><span class="project-dot" style="background:#22d3ee">RE</span><div><strong>Revenue Operations</strong><small>Signal scoring and routing</small></div></div></td><td>8,960</td><td>24.8%</td><td>$78.1k</td><td><span class="metric-trend"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> 9.7%</span></td></tr>
+                    <tr><td><div class="table-primary"><span class="project-dot" style="background:#ff4ecd">ON</span><div><strong>Onboarding</strong><small>Guided setup and checks</small></div></div></td><td>6,420</td><td>28.1%</td><td>$54.6k</td><td><span class="metric-trend"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> 12.9%</span></td></tr>
+                    <tr><td><div class="table-primary"><span class="project-dot" style="background:#ff9f68">CO</span><div><strong>Content Studio</strong><small>Drafting and repurposing</small></div></div></td><td>5,180</td><td>18.6%</td><td>$39.2k</td><td><span class="metric-trend down"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> 2.4%</span></td></tr>
+                    <tr><td><div class="table-primary"><span class="project-dot" style="background:#3b82f6">RI</span><div><strong>Risk Review</strong><small>Document checks and approvals</small></div></div></td><td>3,360</td><td>36.2%</td><td>$19.8k</td><td><span class="metric-trend"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> 7.1%</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section class="dash-panel span-4">
+            <div class="panel-head"><div><h2>Signals to watch</h2><p>What the data is telling you.</p></div></div>
+            <div class="panel-body">
+              <div class="quick-list">
+                <div class="quick-card"><span class="qa-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><div><strong>Support is scaling well</strong><p>Resolved volume grew 18% without adding headcount.</p></div></div>
+                <div class="quick-card"><span class="qa-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.7 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><div><strong>Content conversion dipped</strong><p>Review prompts and audience targeting before expanding.</p></div></div>
+                <div class="quick-card"><span class="qa-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Review quality is stable</strong><p>Human pass rate held above 89% across all agents.</p></div></div>
+              </div>
+              <a class="dash-btn primary sm" href="reports.html" style="margin-top:14px">Build an executive report <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js" defer></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="js/charts.js" defer></script>
+  <script src="js/dashboard.js" defer></script>
+</body>
+</html>

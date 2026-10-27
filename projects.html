@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track and manage the Stackly AI demo project portfolio with local CRUD interactions.">
+  <title>Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%237c5cff'/%3E%3Cstop offset='.5' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%23ff4ecd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Crect x='20' y='20' width='24' height='24' rx='4' transform='rotate(45 32 32)' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script>
+    (function () {
+      try {
+        var raw = sessionStorage.getItem('stackly_user');
+        var user = raw ? JSON.parse(raw) : null;
+        if (!user || !user.email) {
+          var next = location.pathname.split('/').pop() || 'dashboard.html';
+          location.replace('login.html?next=' + encodeURIComponent(next));
+        }
+      } catch (error) {
+        location.replace('login.html');
+      }
+    })();
+  </script>
+</head>
+<body class="dashboard-body" data-page="projects">
+  <a href="#dashMain" class="sr-only">Skip to dashboard content</a>
+  <div class="dash-shell">
+    <aside class="dash-sidebar" id="dashSidebar" aria-label="Dashboard sidebar"></aside>
+    <div class="dash-main">
+      <header class="dash-topbar" id="dashTopbar"></header>
+      <main class="dash-content" id="dashMain">
+
+        <div class="page-head">
+          <div>
+            <div class="greeting-pill">Delivery hub</div>
+            <h1>Projects</h1>
+            <p>Track the demo portfolio, update status, and add projects in this browser.</p>
+          </div>
+          <div class="page-head-actions">
+            <span class="badge demo">Local demo data</span>
+            <button class="dash-btn primary" id="addProjectBtn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New project</button>
+          </div>
+        </div>
+
+        <div class="analytics-summary">
+          <div class="mini-stat"><small>Total projects</small><strong id="metricProjects">7</strong><span>2 added this month</span></div>
+          <div class="mini-stat"><small>Active delivery</small><strong id="metricActiveProjects">4</strong><span>Across 3 workstreams</span></div>
+          <div class="mini-stat"><small>Average completion</small><strong>66%</strong><span>+8 pts this quarter</span></div>
+          <div class="mini-stat"><small>On-time delivery</small><strong>92%</strong><span>Human reviewed</span></div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filter-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><label class="sr-only" for="projectSearch">Search projects</label><input id="projectSearch" type="search" placeholder="Search projects, owners, clients..." autocomplete="off"></div>
+          <div class="filter-tabs" role="group" aria-label="Filter projects">
+            <button class="filter-tab active" type="button" data-project-filter="All">All</button>
+            <button class="filter-tab" type="button" data-project-filter="in-progress">In Progress</button>
+            <button class="filter-tab" type="button" data-project-filter="completed">Completed</button>
+            <button class="filter-tab" type="button" data-project-filter="planning">Planning</button>
+            <button class="filter-tab" type="button" data-project-filter="review">In Review</button>
+          </div>
+          <span class="tool-category" id="projectCountLabel" style="margin-left:auto">7 of 7 projects</span>
+        </div>
+
+        <div class="project-card-grid" id="projectsCardGrid" aria-live="polite"></div>
+
+        <section class="dash-panel" style="margin-top:18px">
+          <div class="panel-head">
+            <div><h2>All projects</h2><p>Full portfolio table with progress and due dates.</p></div>
+            <a class="dash-btn sm" href="reports.html">See delivery report <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="panel-body flush">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Project</th><th>Owner</th><th>Category</th><th>Status</th><th>Progress</th><th>Due</th><th>Actions</th></tr></thead>
+                <tbody id="projectsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <div class="notice-box" style="margin-top:16px;margin-bottom:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><div><strong>Demo behaviour</strong>Projects you add or delete are saved to this browser only. Connect a backend endpoint to persist them for a real team.</div></div>
+
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js" defer></script>
+  
+  
+  <script src="js/dashboard.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manage your Stackly AI demo profile, preferences, theme, and local password.">
+  <title>Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%237c5cff'/%3E%3Cstop offset='.5' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%23ff4ecd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Crect x='20' y='20' width='24' height='24' rx='4' transform='rotate(45 32 32)' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script>
+    (function () {
+      try {
+        var raw = sessionStorage.getItem('stackly_user');
+        var user = raw ? JSON.parse(raw) : null;
+        if (!user || !user.email) {
+          var next = location.pathname.split('/').pop() || 'dashboard.html';
+          location.replace('login.html?next=' + encodeURIComponent(next));
+        }
+      } catch (error) {
+        location.replace('login.html');
+      }
+    })();
+  </script>
+</head>
+<body class="dashboard-body" data-page="settings">
+  <a href="#dashMain" class="sr-only">Skip to dashboard content</a>
+  <div class="dash-shell">
+    <aside class="dash-sidebar" id="dashSidebar" aria-label="Dashboard sidebar"></aside>
+    <div class="dash-main">
+      <header class="dash-topbar" id="dashTopbar"></header>
+      <main class="dash-content" id="dashMain">
+
+        <div class="page-head">
+          <div>
+            <div class="greeting-pill">Account &amp; workspace</div>
+            <h1>Settings</h1>
+            <p>Manage your demo profile, notifications, appearance, and local password.</p>
+          </div>
+          <div class="page-head-actions">
+            <span class="badge demo">Demo account</span>
+            <a class="dash-btn" href="dashboard.html">Back to overview <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <div style="display:grid;gap:16px;min-width:0;">
+            <section class="dash-panel settings-card">
+              <h2>Profile</h2>
+              <p>This updates the name and email shown in your demo session.</p>
+              <form id="settingsProfileForm" novalidate>
+                <div class="form-grid">
+                  <div class="form-field"><label for="settingsName">Full name</label><input class="form-control" id="settingsName" name="name" autocomplete="name" maxlength="60" required><div class="field-hint error" data-error>Please enter your name.</div></div>
+                  <div class="form-field"><label for="settingsEmail">Email address</label><input class="form-control" id="settingsEmail" name="email" type="email" autocomplete="email" required><div class="field-hint error" data-error>Enter a valid email.</div></div>
+                </div>
+                <div class="form-field"><label for="settingsRole">Workspace role</label><input class="form-control" id="settingsRole" value="Workspace administrator" readonly aria-describedby="roleHelp"><div class="field-hint" id="roleHelp">Role changes are managed by your backend in a production deployment.</div></div>
+                <div class="settings-actions">
+                  <button class="dash-btn primary" type="submit">Save profile</button>
+                  <span class="settings-feedback" id="profileFeedback" role="status"></span>
+                </div>
+              </form>
+            </section>
+
+            <section class="dash-panel settings-card">
+              <h2>Password</h2>
+              <p>Demo passwords are stored as salted PBKDF2 hashes in this browser.</p>
+              <form id="settingsPasswordForm" novalidate>
+                <div class="form-field"><label for="currentPassword">Current password</label><input class="form-control" id="currentPassword" type="password" autocomplete="current-password" required><div class="field-hint error" data-error>Enter your current password.</div></div>
+                <div class="form-grid">
+                  <div class="form-field"><label for="newPassword">New password</label><input class="form-control" id="newPassword" type="password" autocomplete="new-password" minlength="8" required><div class="field-hint error" data-error>Use 8+ characters with a letter and number.</div></div>
+                  <div class="form-field"><label for="confirmNewPassword">Confirm new password</label><input class="form-control" id="confirmNewPassword" type="password" autocomplete="new-password" required><div class="field-hint error" data-error>Passwords must match.</div></div>
+                </div>
+                <div class="settings-actions">
+                  <button class="dash-btn primary" id="changePasswordBtn" type="submit">Update password</button>
+                  <span class="settings-feedback" id="passwordFeedback" role="status"></span>
+                </div>
+                <p class="settings-note">Password changes work for the local demo account. A production app must send this request to a secure HTTPS backend and never store plaintext passwords in the browser.</p>
+              </form>
+            </section>
+          </div>
+
+          <div style="display:grid;gap:16px;min-width:0;">
+            <section class="dash-panel settings-card">
+              <h2>Notifications</h2>
+              <p>Choose which sample updates you would like to see.</p>
+              <form id="settingsPreferencesForm">
+                <div class="toggle-row">
+                  <div><strong>Email notifications</strong><p>Demo preference for account and delivery updates.</p></div>
+                  <button class="toggle" type="button" role="switch" aria-checked="true" aria-label="Email notifications" data-pref="emailNotif"></button>
+                </div>
+                <div class="toggle-row">
+                  <div><strong>Product updates</strong><p>News about new demo tools and workspace improvements.</p></div>
+                  <button class="toggle" type="button" role="switch" aria-checked="true" aria-label="Product updates" data-pref="productNotif"></button>
+                </div>
+                <div class="toggle-row">
+                  <div><strong>Weekly digest</strong><p>A weekly summary of projects, quality, and team activity.</p></div>
+                  <button class="toggle" type="button" role="switch" aria-checked="false" aria-label="Weekly digest" data-pref="weeklyDigest"></button>
+                </div>
+                <div class="form-field" style="margin-top:16px;">
+                  <label>Appearance</label>
+                  <div class="theme-options">
+                    <label class="theme-option"><input type="radio" name="theme" value="midnight" checked><span class="theme-card"><span class="theme-preview"><span class="tp-side"></span><span class="tp-main"></span></span><span class="theme-name">Midnight</span></span></label>
+                    <label class="theme-option light"><input type="radio" name="theme" value="light"><span class="theme-card"><span class="theme-preview"><span class="tp-side"></span><span class="tp-main"></span></span><span class="theme-name">Light</span></span></label>
+                    <label class="theme-option auto"><input type="radio" name="theme" value="auto"><span class="theme-card"><span class="theme-preview"><span class="tp-side"></span><span class="tp-main"></span></span><span class="theme-name">System</span></span></label>
+                  </div>
+                </div>
+                <div class="settings-actions">
+                  <button class="dash-btn primary" type="submit">Save preferences</button>
+                  <span class="settings-feedback" id="prefsFeedback" role="status"></span>
+                </div>
+              </form>
+            </section>
+
+            <section class="dash-panel settings-card">
+              <h2>Your demo account</h2>
+              <p>Session details for this browser.</p>
+              <div class="quick-list">
+                <div class="quick-card"><span class="qa-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span><div><strong data-user-email>demo@stackly.ai</strong><p>Signed in to the local demo workspace.</p></div></div>
+                <div class="quick-card"><span class="qa-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Local-only session</strong><p>No real account, payment, or production data is connected.</p></div></div>
+                <div class="quick-card"><span class="qa-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15 7l3 3"/></svg></span><div><strong>Demo login</strong><p>demo@stackly.ai / Demo123! after a data reset.</p></div></div>
+              </div>
+            </section>
+
+            <section class="dash-panel settings-card danger-zone">
+              <h2>Reset demo data</h2>
+              <p>Restore sample projects, team members, notifications, and preferences. Your account remains.</p>
+              <button class="dash-btn danger" id="resetDemoDataBtn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15 6.7L3 16M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 21v-5h5M21 3v5h-5"/></svg> Reset workspace data</button>
+            </section>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  
+  <script src="js/dashboard.js" defer></script>
+</body>
+</html>

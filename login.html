@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Log in to your Stackly AI Agency workspace.">
+  <title>Login — Stackly AI Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%237c5cff'/%3E%3Cstop offset='.5' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%23ff4ecd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Crect x='20' y='20' width='24' height='24' rx='4' transform='rotate(45 32 32)' fill='white'/%3E%3C/svg%3E">
+</head>
+<body class="auth-page login-auth-page">
+  <main class="auth-shell">
+    <section class="auth-art" aria-label="Stackly introduction">
+      <div class="auth-bg">
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1300&q=85" alt="A professional using AI tools at her desk" fetchpriority="high">
+      </div>
+      <span class="auth-shape s1" aria-hidden="true"></span>
+      <span class="auth-shape s2" aria-hidden="true"></span>
+      <span class="auth-shape s3" aria-hidden="true"></span>
+      <span class="auth-shape s4" aria-hidden="true"></span>
+
+      <a class="brand" href="index.html" aria-label="Stackly AI Agency home">
+        <img class="brand-logo-image" src="assets/images/stackly-logo.webp" alt="Stackly">
+      </a>
+
+      <div class="auth-art-copy">
+        <span class="eyebrow">Welcome back</span>
+        <h1>Where ambitious teams meet intelligent work.</h1>
+        <p>Sign in to your Stackly workspace to track AI projects, explore tools, and turn your best ideas into measurable outcomes.</p>
+        <div class="auth-points">
+          <span class="auth-point"><span>✓</span> Secure demo workspace</span>
+          <span class="auth-point"><span>✓</span> Real-time insights</span>
+          <span class="auth-point"><span>✓</span> Human-first AI</span>
+        </div>
+      </div>
+
+      <div class="auth-art-footer">
+        <div class="mini-avatars" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=70&q=70" alt="">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=70&q=70" alt="">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=70&q=70" alt="">
+        </div>
+        <span>Trusted by 240+ forward-thinking teams</span>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-panel-inner">
+        <div class="auth-topline">
+          <a class="auth-back" href="index.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+            Back to home
+          </a>
+        </div>
+
+        <div class="auth-heading">
+          <h2>Welcome Back</h2>
+          <p>New to Stackly? <a href="signup.html">Create an account</a></p>
+        </div>
+
+        <div class="auth-message" id="authMessage" role="alert" aria-live="polite"></div>
+
+        <form class="auth-form" id="loginForm" novalidate>
+          <fieldset class="role-picker">
+            <legend>Select role</legend>
+            <label><input type="radio" name="role" value="client" checked><span>Client</span></label>
+            <label><input type="radio" name="role" value="admin"><span>Admin</span></label>
+          </fieldset>
+          <div class="field">
+            <label for="loginEmail">Email address</label>
+            <input id="loginEmail" name="email" type="email" autocomplete="off" inputmode="email" placeholder="you@company.com" required aria-describedby="loginEmailError">
+            <span class="field-error" id="loginEmailError" role="alert"></span>
+          </div>
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <div class="password-wrap">
+              <input class="pw-input" id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required aria-describedby="loginPasswordError">
+              <button class="pw-toggle" type="button" data-pw-toggle="loginPassword" aria-label="Show password" aria-pressed="false">
+                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="display:none"><path d="m3 3 18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.2A10.5 10.5 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-3 3.9M6.6 6.6C3.6 8.5 2 12 2 12s3.5 7 10 7c1.5 0 2.8-.3 4-.8"/></svg>
+              </button>
+            </div>
+            <span class="field-error" id="loginPasswordError" role="alert"></span>
+          </div>
+          <div class="field-row-between">
+            <label class="checkbox"><input type="checkbox" id="rememberMe" name="remember"> Remember me</label>
+            <a class="forgot-link" href="404.html">Forgot password?</a>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit" id="loginSubmit">Login to Stackly
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </form>
+
+        <div class="auth-divider">OR CONTINUE WITH</div>
+        <button class="google-btn" type="button" id="googleLoginBtn">
+          <svg class="g-logo" width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z"/>
+            <path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 18.9 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+            <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.6 5.1C9.6 39.6 16.2 44 24 44z"/>
+            <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.7l6.2 5.2C36.9 39.4 44 34 44 24c0-1.3-.1-2.3-.4-3.5z"/>
+          </svg>
+          Continue with Google
+        </button>
+        <div class="google-setup-note" id="googleNote" role="status"></div>
+
+        <p class="auth-legal">By continuing, you agree to Stackly’s <a href="about.html#privacy">privacy approach</a> and responsible AI principles.</p>
+        <div class="auth-note" hidden>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <span>Demo passwords are stored only as salted PBKDF2 hashes in this browser. For production, use a server, HTTPS, hashed credentials, and secure httpOnly sessions.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/auth.js" defer></script>
+</body>
+</html>

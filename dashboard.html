@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stackly AI demo workspace overview with projects, performance charts, tasks, and team activity.">
+  <title>Dashboard Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%237c5cff'/%3E%3Cstop offset='.5' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%23ff4ecd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Crect x='20' y='20' width='24' height='24' rx='4' transform='rotate(45 32 32)' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script>
+    (function () {
+      try {
+        var raw = sessionStorage.getItem('stackly_user');
+        var user = raw ? JSON.parse(raw) : null;
+        if (!user || !user.email) {
+          var next = location.pathname.split('/').pop() || 'dashboard.html';
+          location.replace('login.html?next=' + encodeURIComponent(next));
+        }
+      } catch (error) {
+        location.replace('login.html');
+      }
+    })();
+  </script>
+</head>
+<body class="dashboard-body" data-page="overview">
+  <a href="#dashMain" class="sr-only">Skip to dashboard content</a>
+  <div class="dash-shell">
+    <aside class="dash-sidebar" id="dashSidebar" aria-label="Dashboard sidebar"></aside>
+    <div class="dash-main">
+      <header class="dash-topbar" id="dashTopbar"></header>
+      <main class="dash-content" id="dashMain">
+
+        <div class="page-head">
+          <div>
+            <div class="greeting-pill">Demo workspace</div>
+            <h1>Welcome back, <span data-user-first>there</span>.</h1>
+            <p>Here is what your AI workspace has been up to. All data is sample data in this browser.</p>
+          </div>
+          <div class="page-head-actions">
+            <label class="sr-only" for="overviewRange">Overview date range</label>
+            <select class="dash-control" id="overviewRange">
+              <option value="7">Last 7 days</option>
+              <option value="30" selected>Last 30 days</option>
+              <option value="90">Last 90 days</option>
+            </select>
+            <label class="sr-only" for="overviewMetric">Overview metric</label>
+            <select class="dash-control" id="overviewMetric">
+              <option value="activity">Interactions</option>
+              <option value="revenue">Revenue</option>
+              <option value="hours">Hours saved</option>
+            </select>
+            <button class="dash-btn primary" id="addProjectBtn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New project</button>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card" style="--m-bg:rgba(124,92,255,.12);--m-color:#a78bfa;--m-glow:rgba(124,92,255,.16);--m-line:rgba(124,92,255,.2)">
+            <div class="metric-top"><span class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="metric-trend"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> +2</span></div>
+            <div class="metric-value" id="metricProjects">7</div>
+            <div class="metric-label">Total projects</div>
+            <div class="metric-foot"><span id="metricActiveProjects">4</span> active this month</div>
+          </article>
+          <article class="metric-card" style="--m-bg:rgba(34,211,238,.1);--m-color:#67e2f5;--m-glow:rgba(34,211,238,.14);--m-line:rgba(34,211,238,.18)">
+            <div class="metric-top"><span class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span><span class="metric-trend"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> +6</span></div>
+            <div class="metric-value">24</div>
+            <div class="metric-label">Active AI agents</div>
+            <div class="metric-foot">Across 5 workflows</div>
+          </article>
+          <article class="metric-card" style="--m-bg:rgba(56,217,150,.1);--m-color:#72e9b4;--m-glow:rgba(56,217,150,.13);--m-line:rgba(56,217,150,.18)">
+            <div class="metric-top"><span class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 6.5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="metric-trend"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> 18.4%</span></div>
+            <div class="metric-value">$284.2k</div>
+            <div class="metric-label">Revenue impact</div>
+            <div class="metric-foot">Attributed this quarter</div>
+          </article>
+          <article class="metric-card" style="--m-bg:rgba(255,159,104,.1);--m-color:#ffb58e;--m-glow:rgba(255,159,104,.13);--m-line:rgba(255,159,104,.18)">
+            <div class="metric-top"><span class="metric-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="metric-trend"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> 7.2%</span></div>
+            <div class="metric-value">86%</div>
+            <div class="metric-label">Task completion</div>
+            <div class="metric-foot">1,284 tasks automated</div>
+          </article>
+        </div>
+
+        <div class="dash-grid">
+          <section class="dash-panel span-8">
+            <div class="panel-head">
+              <div><h2>Activity &amp; growth</h2><p>Agent interactions, revenue impact, and time saved over time.</p></div>
+              <span class="badge demo">Demo data</span>
+            </div>
+            <div class="panel-body">
+              <div class="chart-wrap"><canvas id="activityLineChart" aria-label="Line chart of activity over time" role="img"></canvas></div>
+              <p class="chart-note">Use the range and metric selectors above to update this chart.</p>
+            </div>
+          </section>
+          <section class="dash-panel span-4">
+            <div class="panel-head"><div><h2>Portfolio mix</h2><p>Projects by capability.</p></div></div>
+            <div class="panel-body">
+              <div class="chart-wrap"><canvas id="projectPieChart" aria-label="Doughnut chart of project categories" role="img"></canvas></div>
+            </div>
+          </section>
+
+          <section class="dash-panel span-7">
+            <div class="panel-head">
+              <div><h2>Performance vs target</h2><p>AI workflow quality across the current portfolio.</p></div>
+              <span class="filter-tab active">This period</span>
+            </div>
+            <div class="panel-body">
+              <div class="chart-wrap"><canvas id="performanceBarChart" aria-label="Bar chart of performance versus target" role="img"></canvas></div>
+            </div>
+          </section>
+
+          <section class="dash-panel span-5">
+            <div class="panel-head"><div><h2>AI performance</h2><p>Operational quality at a glance.</p></div><span class="tool-category">Live demo</span></div>
+            <div class="panel-body">
+              <div class="perf-item">
+                <div class="perf-head"><span>Resolution accuracy</span><strong>94%</strong></div>
+                <div class="progress"><span style="width:94%"></span></div>
+              </div>
+              <div class="perf-item">
+                <div class="perf-head"><span>Automation coverage</span><strong>78%</strong></div>
+                <div class="progress"><span style="width:78%"></span></div>
+              </div>
+              <div class="perf-item">
+                <div class="perf-head"><span>Human review pass rate</span><strong>89%</strong></div>
+                <div class="progress"><span style="width:89%"></span></div>
+              </div>
+              <div class="workspace-visual">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80" alt="Stackly team collaborating around a laptop" loading="lazy">
+                <div><strong>Built with humans in the loop</strong><small>Quality reviews on every high-impact workflow</small></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="dash-panel span-8">
+            <div class="panel-head">
+              <div><h2>Recent projects</h2><p>Latest work across the demo portfolio.</p></div>
+              <a class="dash-btn sm" href="projects.html">View all <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+            <div class="panel-body flush">
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead><tr><th>Project</th><th>Owner</th><th>Category</th><th>Status</th><th>Progress</th><th>Due</th><th>Actions</th></tr></thead>
+                  <tbody id="recentProjectsBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section class="dash-panel span-4">
+            <div class="panel-head"><div><h2>Recent activity</h2><p>What changed lately.</p></div><a class="dash-btn sm icon-only" href="notifications.html" aria-label="View all notifications"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></a></div>
+            <div class="panel-body">
+              <div class="activity-list">
+                <div class="activity-item">
+                  <span class="activity-icon" style="--a-bg:rgba(56,217,150,.1);--a-color:#72e9b4;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                  <div><strong>Support Copilot completed a run</strong><p>142 tickets resolved with a 94% helpfulness score.</p><time>12 minutes ago</time></div>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-icon" style="--a-bg:rgba(34,211,238,.1);--a-color:#67e2f5;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></span>
+                  <div><strong>October report is ready</strong><p>Monthly AI Performance Report is ready to review.</p><time>1 hour ago</time></div>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-icon" style="--a-bg:rgba(255,159,104,.1);--a-color:#ffb58e;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.7 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span>
+                  <div><strong>Review requested</strong><p>Risk Review Assistant needs human approval.</p><time>5 hours ago</time></div>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span>
+                  <div><strong>Onboarding milestone reached</strong><p>Onboarding Flow AI moved into adoption tracking.</p><time>Yesterday</time></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="dash-panel span-4">
+            <div class="panel-head"><div><h2>Today's focus</h2><p>Check off demo tasks.</p></div><span class="tool-category">4 items</span></div>
+            <div class="panel-body overview-tasks">
+              <div class="task-item">
+                <button class="task-check" type="button" data-task-id="review-risk" aria-label="Toggle review risk assessment"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button>
+                <span>Review risk agent output</span><small>High</small>
+              </div>
+              <div class="task-item">
+                <button class="task-check" type="button" data-task-id="approve-release" aria-label="Toggle approve release"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button>
+                <span>Approve onboarding release</span><small>Today</small>
+              </div>
+              <div class="task-item">
+                <button class="task-check" type="button" data-task-id="client-sync" aria-label="Toggle client sync"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button>
+                <span>Prepare Northstar sync</span><small>2 pm</small>
+              </div>
+              <div class="task-item">
+                <button class="task-check" type="button" data-task-id="quality-eval" aria-label="Toggle quality evaluation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button>
+                <span>Update quality evaluation set</span><small>Friday</small>
+              </div>
+            </div>
+          </section>
+
+          <section class="dash-panel span-8">
+            <div class="panel-head"><div><h2>Workspace snapshot</h2><p>Capacity, quality, and delivery in one place.</p></div><a class="dash-btn sm" href="analytics.html">Open analytics <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+            <div class="panel-body">
+              <div class="analytics-summary" style="margin-bottom:0">
+                <div class="mini-stat"><small>Automation uptime</small><strong>99.8%</strong><span>+0.4% vs last month</span></div>
+                <div class="mini-stat"><small>Avg. response time</small><strong>1.8s</strong><span>32% faster</span></div>
+                <div class="mini-stat"><small>Hours saved</small><strong>1,284</strong><span>+22% this quarter</span></div>
+                <div class="mini-stat"><small>Quality score</small><strong>4.7/5</strong><span>Human reviewed</span></div>
+              </div>
+              <div class="summary-inline"><span><strong>7</strong> projects</span><span><strong>6</strong> specialists</span><span><strong>8</strong> AI tools</span><span><strong>3</strong> human checkpoints</span></div>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js" defer></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="js/charts.js" defer></script>
+  <script src="js/dashboard.js" defer></script>
+</body>
+</html>

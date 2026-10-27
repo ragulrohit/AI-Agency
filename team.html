@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meet the Stackly AI demo delivery team and manage a local team directory.">
+  <title>Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%237c5cff'/%3E%3Cstop offset='.5' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%23ff4ecd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Crect x='20' y='20' width='24' height='24' rx='4' transform='rotate(45 32 32)' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script>
+    (function () {
+      try {
+        var raw = sessionStorage.getItem('stackly_user');
+        var user = raw ? JSON.parse(raw) : null;
+        if (!user || !user.email) {
+          var next = location.pathname.split('/').pop() || 'dashboard.html';
+          location.replace('login.html?next=' + encodeURIComponent(next));
+        }
+      } catch (error) {
+        location.replace('login.html');
+      }
+    })();
+  </script>
+</head>
+<body class="dashboard-body" data-page="team">
+  <a href="#dashMain" class="sr-only">Skip to dashboard content</a>
+  <div class="dash-shell">
+    <aside class="dash-sidebar" id="dashSidebar" aria-label="Dashboard sidebar"></aside>
+    <div class="dash-main">
+      <header class="dash-topbar" id="dashTopbar"></header>
+      <main class="dash-content" id="dashMain">
+
+        <div class="page-head">
+          <div>
+            <div class="greeting-pill">People &amp; capability</div>
+            <h1>Team</h1>
+            <p>Meet the specialists delivering AI work. Add or remove demo team members in this browser.</p>
+          </div>
+          <div class="page-head-actions">
+            <span class="badge demo">Demo directory</span>
+            <button class="dash-btn primary" id="addTeamBtn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Add member</button>
+          </div>
+        </div>
+
+        <div class="analytics-summary">
+          <div class="mini-stat"><small>Team members</small><strong>6</strong><span>Design, engineering, strategy</span></div>
+          <div class="mini-stat"><small>Active projects</small><strong>7</strong><span>Every specialist assigned</span></div>
+          <div class="mini-stat"><small>Avg. tenure</small><strong>4.2 yrs</strong><span>Senior-led delivery</span></div>
+          <div class="mini-stat"><small>Human review capacity</small><strong>89%</strong><span>Quality first</span></div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filter-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><label class="sr-only" for="teamSearch">Search team</label><input id="teamSearch" type="search" placeholder="Search people, roles, projects..." autocomplete="off"></div>
+          <div class="filter-tabs" role="group" aria-label="Filter team by department">
+            <button class="filter-tab active" type="button" data-team-filter="All">All</button>
+            <button class="filter-tab" type="button" data-team-filter="Design">Design</button>
+            <button class="filter-tab" type="button" data-team-filter="Engineering">Engineering</button>
+            <button class="filter-tab" type="button" data-team-filter="Strategy">Strategy</button>
+          </div>
+          <span class="tool-category" id="teamCountLabel" style="margin-left:auto">6 of 6 team members</span>
+        </div>
+
+        <div class="team-item-grid" id="teamCardGrid" aria-live="polite"></div>
+
+        <div class="dash-grid" style="margin-top:18px">
+          <section class="dash-panel span-8">
+            <div class="panel-head"><div><h2>How we staff AI work</h2><p>Small, senior teams with clear ownership.</p></div></div>
+            <div class="panel-body">
+              <div class="quick-list">
+                <div class="quick-card"><span class="qa-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><strong>One accountable lead</strong><p>Every engagement has a named delivery owner from discovery through adoption.</p></div></div>
+                <div class="quick-card"><span class="qa-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Human review by default</strong><p>High-impact outputs pass through a domain specialist before release.</p></div></div>
+                <div class="quick-card"><span class="qa-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></span><div><strong>Metrics before expansion</strong><p>We scale automation only after quality and adoption hold for two cycles.</p></div></div>
+              </div>
+            </div>
+          </section>
+          <section class="dash-panel span-4">
+            <div class="panel-head"><div><h2>Need a specialist?</h2><p>Tell us what the work needs.</p></div></div>
+            <div class="panel-body">
+              <p style="color:var(--muted);font-size:.75rem;line-height:1.65;margin-bottom:14px;">We can assemble a focused team around your workflow, data constraints, and review requirements.</p>
+              <p class="settings-note">This team directory is sample data and is not connected to an HR system.</p>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js" defer></script>
+  
+  
+  <script src="js/dashboard.js" defer></script>
+</body>
+</html>
